@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     console.log('🎮 游戏启动完成！');
+    
+    // 调试：检查按钮是否存在
+    const btnNewGame = document.getElementById('btn-new-game');
+    if (btnNewGame) {
+        console.log('✅ "开始修行"按钮已找到');
+    } else {
+        console.error('❌ "开始修行"按钮未找到！');
+    }
 });
 
 // 全局错误处理

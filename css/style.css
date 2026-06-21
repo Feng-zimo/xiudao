@@ -51,13 +51,13 @@ body {
 
 /* ---------- 屏幕切换系统 ---------- */
 .screen {
-    display: none;
+    display: none !important;
     min-height: 100vh;
     animation: fadeIn 0.3s ease-in;
 }
 
 .screen.active {
-    display: block;
+    display: block !important;
 }
 
 @keyframes fadeIn {

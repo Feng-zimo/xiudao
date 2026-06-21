@@ -20,10 +20,19 @@ const UI = {
      * 绑定事件
      */
     bindEvents() {
+        console.log('🔧 开始绑定事件...');
+        
         // 首页按钮
-        document.getElementById('btn-new-game')?.addEventListener('click', () => {
-            this.showScreen('character-creation');
-        });
+        const btnNewGame = document.getElementById('btn-new-game');
+        if (btnNewGame) {
+            btnNewGame.addEventListener('click', () => {
+                console.log('👆 点击了"开始修行"按钮');
+                this.showScreen('character-creation');
+            });
+            console.log('✅ "开始修行"按钮事件已绑定');
+        } else {
+            console.error('❌ "开始修行"按钮不存在！');
+        }
         
         document.getElementById('btn-continue')?.addEventListener('click', () => {
             if (Game.state.isPlaying) {
@@ -170,6 +179,8 @@ const UI = {
      * @param {string} screenId - 屏幕ID
      */
     showScreen(screenId) {
+        console.log(`📺 切换屏幕: ${screenId}`);
+        
         // 隐藏所有屏幕
         document.querySelectorAll('.screen').forEach(screen => {
             screen.classList.remove('active');
@@ -180,6 +191,9 @@ const UI = {
         if (targetScreen) {
             targetScreen.classList.add('active');
             this.currentScreen = screenId;
+            console.log(`✅ 屏幕切换成功: ${screenId}`);
+        } else {
+            console.error(`❌ 找不到屏幕: ${screenId}`);
         }
         
         // 特殊处理
@@ -885,6 +899,38 @@ const UI = {
         }
         
         this.currentPossessionTarget = null;
+    },
+    
+    /**
+     * 更新境界提示和渡劫按钮显示
+     */
+    updateRealmHint() {
+        const realmHint = document.getElementById('realm-hint');
+        const btnTribulation = document.getElementById('btn-tribulation');
+        
+        if (!realmHint || !btnTribulation) return;
+        
+        const player = Game.player;
+        const realm = player.cultivation.realm;
+        const level = player.cultivation.level;
+        const maxLevel = 10; // 每个境界最大等级
+        
+        // 检查是否可以渡劫（达到当前境界满级）
+        if (level >= maxLevel && realm !== '筠仙期') {
+            // 可以渡劫
+            realmHint.style.display = 'block';
+            realmHint.innerHTML = `⚡ <strong>恭喜！</strong>已达到${realm}Lv${level}，可以渡劫突破至下一境界！`;
+            btnTribulation.style.display = 'inline-block';
+        } else if (realm === '筠仙期' && level >= maxLevel) {
+            // 已达最高境界
+            realmHint.style.display = 'block';
+            realmHint.innerHTML = `🎉 <strong>大道至简！</strong>你已达到最高境界筠仙期Lv${level}！`;
+            btnTribulation.style.display = 'none';
+        } else {
+            // 未达到渡劫条件
+            realmHint.style.display = 'none';
+            btnTribulation.style.display = 'none';
+        }
     },
     
     /**
