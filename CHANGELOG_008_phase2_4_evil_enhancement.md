@@ -1,4 +1,4 @@
-# 📝 修改报告 - Phase 2.4: 邪修系统优化与增强
+gh pages enable --source main --path /# 📝 修改报告 - Phase 2.4: 邪修系统优化与增强
 
 ## 📅 修改信息
 - **日期**: 2026-06-20
